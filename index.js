@@ -34,7 +34,7 @@ const initialPrompt = staging => {
             return addEmployee();
         }
         else if (staging.options === 'Update an Employee') {
-            // return updateEmployee
+            return updateEmployee();
         }
 
     });
@@ -144,6 +144,33 @@ const addEmployee = employee => {
     });
 };
 
+const updateEmployee = employee => {
+    employee = [];
+    return inquirer.prompt([
+        {
+            type: 'number',
+            name: 'employee_id',
+            message: 'Who do you want to update?'
+        },
+        {
+            type: 'number',
+            name: 'Role',
+            message: 'What is the new Role id'
+
+        },
+        {
+            type: 'number',
+            name: 'Manager',
+            message: 'What is the new Manager id'
+
+        }
+    ])
+    .then(employeeData2 => {
+        return queryUpdate(employeeData2['employee_id'], employeeData2['Role'], employeeData2['Manager']);
+    });
+};
+
+
 async function queryDepartment(name) {
     const sql = `INSERT INTO department name VALUES ("${name}")`;
     const params = [name];
@@ -173,6 +200,19 @@ async function queryRoles(title, salary, department_id) {
 async function queryEmployee(first_name, last_name, role_id, manager_id) {
     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}", "${last_name}", ${role_id}, ${manager_id})`;
     const params = [first_name, last_name, role_id, manager_id];
+    await db.query(sql, params, (err, result) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    });
+
+    initialPrompt();
+};
+
+async function queryUpdate(employee_id, role_id, manager_id) {
+    const sql = `UPDATE employee SET role_id = ${role_id}, manager_id = ${manager_id} WHERE employee_id = ${employee_id}`;
+    const params = [employee_id, role_id, manager_id];
     await db.query(sql, params, (err, result) => {
         if (err) {
             console.log(err);
