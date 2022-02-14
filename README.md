@@ -5,7 +5,7 @@ Through the use of MYSQL, Node, and Inquirer, I created a terminal-based program
 
 ## Image Mockup
 
-![Terminal Mockup](./Terminal.JPG)
+![Terminal Mockup](/Terminal.jpg)
 
 ## Link to Example Video
 [Video Link](https://watch.screencastify.com/v/bHnQjZtmfPqGhZvfuX8R)
