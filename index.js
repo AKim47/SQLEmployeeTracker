@@ -172,7 +172,7 @@ const updateEmployee = employee => {
 
 
 async function queryDepartment(name) {
-    const sql = `INSERT INTO department name VALUES ("${name}")`;
+    const sql = `INSERT INTO department (name) VALUES ("${name}")`;
     const params = [name];
     await db.query(sql, params, (err, result) => {
         if (err) {
